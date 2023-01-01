@@ -19,11 +19,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        startStopButton.setTitleColor(UIColor.green, for: .normal)
-    
-        
+        self.startStopButton.setTitleColor(UIColor.green, for: .normal)
     }
 
+    /* Presents an alert to check if user wants to reset the timer, then resets or dismisses accordiingly. */
     @IBAction func resetTapped(_ sender: Any) {
         let alert = UIAlertController(title: "Reset Timer?", message: "Are you sure you want to reset the timer?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
@@ -40,7 +39,7 @@ class ViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    
+    /*Starts or stops the timer according to its previous state.*/
     @IBAction func startStopTapped(_ sender: Any) {
         if(isTimerCounting) {
             isTimerCounting = false
@@ -56,7 +55,8 @@ class ViewController: UIViewController {
             
         }
     }
-                                          
+          
+    /* Updates the timer label after each second. */
     @objc func timerCounter() -> Void {
         count = count + 1
         let time = secondsToHoursMinutesSeconds(seconds: count)
@@ -64,11 +64,12 @@ class ViewController: UIViewController {
         TimerLabel.text = timeString
     }
     
-// takes in count (a huge number of seconds), and converts into hours, minutes and seconds
+    /* Takes in count (a huge number of seconds), and converts into hours, minutes and seconds */
     func secondsToHoursMinutesSeconds(seconds: Int) -> (Int, Int, Int) {
         return ((seconds/3600), ((seconds % 3600) / 60), ((seconds % 3600) % 60))
     }
     
+    /* Returns a string which represents the time in hours : minutes: seconds */
     func makeTimeString(hours: Int, minutes: Int, seconds: Int) -> String {
         var timeString = ""
         timeString += String(format: "%02d", hours)
